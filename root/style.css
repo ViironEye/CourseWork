@@ -1,12 +1,15 @@
-.ponos
+.head1
 {
-    color: #ff7787;
+    text-align: center;
+    font-size: 50px;
+    font-variant: small-caps;
+    letter-spacing: 5px;
+    background: linear-gradient(90deg, rgba(255, 0, 0, 123) 0%, rgba(0, 255, 255, 225) 35%, rgba(0, 0, 255, 255) 100%);
+    color: violet;
 }
 
-.genshin
+body
 {
-    width: 500px;
-    height: 2000px;
-    position:absolute;
-
+    background-color: green;
+    
 }
