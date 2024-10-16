@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './scripts/const.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import MainHeader from './scripts/MainHeader';
+import AuthorisationBlock from './scripts/AuthorisationBlock';
+
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <MainHeader/>
+    <AuthorisationBlock/>
   </React.StrictMode>
 );
 
