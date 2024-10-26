@@ -28,5 +28,3 @@ function AuthorisationBlock()
 }
 
 export default AuthorisationBlock;
-
-
