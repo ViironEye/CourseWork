@@ -1,0 +1,45 @@
+version: '3.6'
+
+services:
+  web:
+    image: 'orion/frontend:latest'
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - type: bind
+        source: "/srv/orion/frontend/config.ts"
+        target: "${PWD}/src/api/config.ts"
+    networks: [ 'c' ]
+  backend:
+    image: 'orion/backend:latest'
+    restart: always
+    ports:
+      - '4000:4000'
+    volumes:
+      - type: bind
+        source: "/srv/orion/backend/.env"
+        target: "${PWD}/.env"
+    networks: [ 'c' ]
+  redis:
+    image: "redis:latest"
+    volumes:
+      - "/srv/orion/redis:/data"
+    networks: [ 'c' ]
+  db:
+    image: 'postgres:latest'
+    ports:
+      - target: 5432
+        protocol: tcp
+        mode: host
+    environment:
+      POSTGRES_DB: "orion"
+      POSTGRES_USER: "orion"
+      POSTGRES_PASSWORD: "4EBTBZXP2CFHP46C7JN3Y19I19NJCFEW5ZQSSZI8OWW42UOQSJ"
+    volumes:
+      - "/srv/orion/pg:/var/lib/postgresql/data"
+    networks: [ 'c' ]
+
+networks: {
+    c: {}
+}
