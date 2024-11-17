@@ -10,3 +10,4 @@ global using backend;
 global using backend.Models;
 global using backend.Data;
 global using Microsoft.EntityFrameworkCore;
+global using backend.Controllers;
