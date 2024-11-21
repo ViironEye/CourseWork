@@ -14,5 +14,7 @@ namespace backend.Controllers
         public abstract IActionResult GetAll();
 
         public abstract IActionResult GetById(int id);
+
+        //public abstract IActionResult Create();
     }
 }

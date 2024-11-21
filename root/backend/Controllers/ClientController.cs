@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Dtos.Client;
+using backend.Mappers;
 
 namespace backend.Controllers
 {
@@ -12,7 +14,7 @@ namespace backend.Controllers
         [HttpGet]
         public override IActionResult GetAll()
         {
-            var clients = _context.Client.ToList();
+            var clients = _context.Client.ToList().Select(s => s.ToClientDto());
 
             return Ok(clients);
         }
@@ -27,7 +29,19 @@ namespace backend.Controllers
                 return NotFound();
             }
 
-            return Ok(client);
+            return Ok(client.ToClientDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateClientRequestDto clientDto)
+        {
+            var clientModel = clientDto.ToClientFromCreateDto();
+
+            _context.Client.Add(clientModel);
+
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { id = clientModel.Id }, clientModel.ToClientDto());
         }
     }
 }

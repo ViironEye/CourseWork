@@ -5179,11 +5179,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\CourseWork\\root\\backend\\backend.csproj",
+      "projectUniqueName": "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "c:\\CourseWork\\root\\backend\\backend.csproj",
+      "projectPath": "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\sergey\\.nuget\\packages\\",
-      "outputPath": "c:\\CourseWork\\root\\backend\\obj\\",
+      "outputPath": "C:\\CourseWork\\CourseWork\\root\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CourseWork\\root\\backend\\backend.csproj": {}
+    "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\CourseWork\\root\\backend\\backend.csproj": {
+    "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CourseWork\\root\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\CourseWork\\root\\backend\\backend.csproj",
+        "projectPath": "C:\\CourseWork\\CourseWork\\root\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\sergey\\.nuget\\packages\\",
-        "outputPath": "C:\\CourseWork\\root\\backend\\obj\\",
+        "outputPath": "C:\\CourseWork\\CourseWork\\root\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

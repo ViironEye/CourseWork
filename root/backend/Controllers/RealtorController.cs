@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.Dtos.Realtor;
+using backend.Mappers;
 
 namespace backend.Controllers
 {
@@ -12,7 +14,7 @@ namespace backend.Controllers
         [HttpGet]
         public override IActionResult GetAll()
         {
-            var realtors = _context.Realtor.ToList();
+            var realtors = _context.Realtor.ToList().Select(s => s.ToRealtorDto());
 
             return Ok(realtors);
         }
@@ -27,7 +29,19 @@ namespace backend.Controllers
                 return NotFound();
             }
 
-            return Ok(realtor);        
+            return Ok(realtor.ToRealtorDto());        
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateRealtorRequestDto realtorDto)
+        {
+            var RealtorModel = realtorDto.ToRealtorFromCreateDto();
+
+            _context.Realtor.Add(RealtorModel);
+
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { id = RealtorModel.Id }, RealtorModel.ToRealtorDto());
         }
     }
 }
