@@ -1,9 +1,0 @@
-.MainHeader {
-    justify-content: center;
-    display: flex;
-    align-content:flex-start;
-}
-
-.MainHeaderText {
-    font-size: 30px;
-}

@@ -1,0 +1,31 @@
+.entireMainScreen{
+    width: 100%;
+    
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.entireInputs{
+    width: 250px;
+    height: 200px;
+
+    align-items: center;
+    gap: 5px;
+
+    margin: 10px;
+    padding: 10px 10px;
+
+    background-color: #ff9f00;    
+}
+
+.entireInput{
+    width: 230px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.entireOk{
+    padding-left: 85px;
+}

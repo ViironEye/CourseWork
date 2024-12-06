@@ -5,9 +5,7 @@ function MainHeader() {
     return (
         <body>
             <div className='MainHeader'>
-                <h1 className='MainHeaderText'>
-                    Агентство недвижимости "Лубяночка"
-                </h1>
+                
             </div>
         </body>
     );

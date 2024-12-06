@@ -22,12 +22,6 @@ namespace backend.Mappers
         {
             return new Conversation
             {
-<<<<<<< HEAD
-                //Id = conversationDto.Id,
-=======
-                Id = conversationDto.Id,
->>>>>>> 001fcab387aa68954b40424480d945e76c017163
-
                 ClientId = conversationDto.ClientId,
 
                 RealtyId = conversationDto.RealtyId,

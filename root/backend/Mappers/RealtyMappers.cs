@@ -26,12 +26,6 @@ namespace backend.Mappers
         {
             return new Realty
             {
-<<<<<<< HEAD
-                //Id = realtyDto.Id,
-=======
-                Id = realtyDto.Id,
->>>>>>> 001fcab387aa68954b40424480d945e76c017163
-
                 Id_Owner = realtyDto.Id_Owner,
 
                 FullName = realtyDto.FullName,

@@ -1,14 +1,21 @@
-function Register() {
+import React from "react";
+import './Register.css';
+import { Link } from "react-router-dom";
+
+export default function Register() 
+{
     return (
-        <html lang="en">
-        <head>
-            <title>Document</title>
-        </head>
         <body>
-            
+            <div className="registerMainScreen">
+                <div className="registerInputs">
+                    <input className="registerInput" placeholder="Логин"/>
+                    <input className="registerInput" placeholder="E-mail" />
+                    <input className="registerInput" placeholder="Пароль" />
+                    <Link className="registerOk" to="/realties" >
+                        Зарегистрироваться
+                    </Link>
+                </div>
+            </div>
         </body>
-        </html>
     );
 }
-
-export default Register;

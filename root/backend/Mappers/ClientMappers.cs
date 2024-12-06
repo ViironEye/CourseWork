@@ -28,12 +28,6 @@ namespace backend.Mappers
         {
             return new Client
             {
-<<<<<<< HEAD
-                //Id = clientDto.Id,
-=======
-                Id = clientDto.Id,
->>>>>>> 001fcab387aa68954b40424480d945e76c017163
-
                 Name = clientDto.Name,
 
                 Lastname = clientDto.Lastname,

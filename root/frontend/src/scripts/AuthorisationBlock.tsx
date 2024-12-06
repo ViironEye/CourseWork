@@ -1,27 +1,20 @@
 import * as React from "react";
 import './AuthorisationBlock.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Register from './Register';
-import MainHeader from "./MainHeader";
+import Entire from "./Entire"
 
 function AuthorisationBlock()
 {
     return (
         <body>
             <div className="AuthorisationButtons">
-                {/* <Router>
-                    <Routes>
-                        <Route path="/"/>   
-                        <Route path="/Register" element={<Register/>} />
-                    </Routes>
-                </Router> */}
-
-                <button className="RegisterButton Button">
+                <Link to="/register" className="RegisterButton Button">
                     Зарегистрироваться
-                </button>
-                <button className="EntireButton Button">
+                </Link>
+                <Link to="/entire" className="EntireButton Button">
                     Войти
-                </button>
+                </Link>
             </div>
         </body>
     );

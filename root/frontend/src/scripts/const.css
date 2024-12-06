@@ -6,3 +6,15 @@
 
     font-family: cursive;
 } 
+
+.Button {
+    background-color: rgba(255, 159, 0, 0.7);
+    width: 20%;
+    height: 5%;
+    text-align: center;
+}
+
+.Button:active {
+    background-color: rgba(255, 159, 0, 0.4);
+    color: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,13 @@
+.head{
+    justify-content: center;
+    display: flex;
+    align-content:flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: #ff9f00;
+}
+
+.headerText {
+    font-size: 30px;
+}
