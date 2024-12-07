@@ -43,5 +43,25 @@ namespace backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = conversationModel.Id }, conversationModel.ToConversationDto());
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateConversationRequestDto conversationDto)
+        {
+            var conversationModel = _context.Conversation.FirstOrDefault(x => x.Id == id);
+
+            if (conversationModel is null)
+            {
+                return NotFound("Conversation not found ;(");
+            }
+
+            conversationModel.ClientId = conversationDto.ClientId;
+
+            conversationModel.RealtyId = conversationDto.RealtyId;
+
+            conversationModel.RealtorId = conversationDto.RealtorId;
+
+            return Ok(conversationModel.ToConversationDto());
+        }
     }
 }

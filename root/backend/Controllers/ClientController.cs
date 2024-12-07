@@ -43,5 +43,33 @@ namespace backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = clientModel.Id }, clientModel.ToClientDto());
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateClientRequestDto clientDto)
+        {
+            var clientModel = _context.Client.FirstOrDefault(x => x.Id == id);
+
+            if (clientModel is null)
+            {
+                return NotFound("Client not found(((");
+            }
+
+            clientModel.Name = clientDto.Name;
+
+            clientModel.Lastname = clientDto.Lastname;
+
+            clientModel.PhoneNumber = clientDto.PhoneNumber;
+
+            clientModel.Email = clientDto.Email;
+
+            clientModel.Login = clientDto.Login;
+
+            clientModel.PasswordHash = clientDto.PasswordHash;
+
+            _context.SaveChanges();
+
+            return Ok(clientModel.ToClientDto());
+        }
     }
 }

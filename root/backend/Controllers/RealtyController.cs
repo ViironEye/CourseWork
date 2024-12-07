@@ -43,5 +43,29 @@ namespace backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = realtyModel.Id }, realtyModel.ToRealtyDto());
         }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRealtyRequestDto realtyDto)
+        {
+            var realtyModel = _context.Realty.FirstOrDefault(x => x.Id == id);
+
+            if (realtyModel is null)
+            {
+                return NotFound("Realty not found >:(");
+            }
+
+            realtyModel.Id_Owner = realtyDto.Id_Owner;
+
+            realtyModel.FullName = realtyDto.FullName;
+
+            realtyModel.Price = realtyDto.Price;
+
+            realtyModel.Adress = realtyDto.Adress;
+
+            realtyModel.Type = realtyDto.Type;
+
+            return Ok(realtyModel.ToRealtyDto());
+        }
     }
 }
