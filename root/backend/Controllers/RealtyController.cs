@@ -66,6 +66,7 @@ namespace backend.Controllers
             realtyModel.Type = realtyDto.Type;
 
             return Ok(realtyModel.ToRealtyDto());
+
         }
     }
 }

@@ -70,6 +70,7 @@ namespace backend.Controllers
             _context.SaveChanges();
 
             return Ok(realtorModel.ToRealtorDto());
+
         }
     }
 }

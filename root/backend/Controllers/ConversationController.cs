@@ -42,6 +42,7 @@ namespace backend.Controllers
             _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { id = conversationModel.Id }, conversationModel.ToConversationDto());
+
         }
 
         [HttpPut]
@@ -62,6 +63,7 @@ namespace backend.Controllers
             conversationModel.RealtorId = conversationDto.RealtorId;
 
             return Ok(conversationModel.ToConversationDto());
+
         }
     }
 }
