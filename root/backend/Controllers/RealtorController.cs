@@ -12,17 +12,19 @@ namespace backend.Controllers
         : base(context) { }
 
         [HttpGet]
-        public override IActionResult GetAll()
+        public override async Task<IActionResult> GetAll()
         {
-            var realtors = _context.Realtor.ToList().Select(s => s.ToRealtorDto());
+            var realtors = await _context.Realtor.ToListAsync();
+            
+            var realtorsDto = realtors.Select(s => s.ToRealtorDto());
 
-            return Ok(realtors);
+            return Ok(realtorsDto);
         }
 
         [HttpGet("{id}")]
-        public override IActionResult GetById([FromRoute] int id)
+        public override async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var realtor = _context.Realtor.Find(id);
+            var realtor = await _context.Realtor.FindAsync(id);
 
             if (realtor is null)
             {
@@ -33,22 +35,22 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateRealtorRequestDto realtorDto)
+        public async Task<IActionResult> Create([FromBody] CreateRealtorRequestDto realtorDto)
         {
             var RealtorModel = realtorDto.ToRealtorFromCreateDto();
 
-            _context.Realtor.Add(RealtorModel);
+            await _context.Realtor.AddAsync(RealtorModel);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = RealtorModel.Id }, RealtorModel.ToRealtorDto());
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRealtorRequestDto realtorDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRealtorRequestDto realtorDto)
         {
-            var realtorModel = _context.Realtor.FirstOrDefault(x => x.Id == id);
+            var realtorModel = await _context.Realtor.FirstOrDefaultAsync(x => x.Id == id);
 
             if (realtorModel is null)
             {
@@ -67,10 +69,27 @@ namespace backend.Controllers
 
             realtorModel.PasswordHash = realtorDto.PasswordHash;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(realtorModel.ToRealtorDto());
+        }
 
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var realtorModel = await _context.Realtor.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (realtorModel is null)
+            {
+                return NotFound("Object not exist or already deleted");
+            }
+
+            _context.Realtor.Remove(realtorModel);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

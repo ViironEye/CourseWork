@@ -12,17 +12,19 @@ namespace backend.Controllers
         : base(context) { }
 
         [HttpGet]
-        public override IActionResult GetAll()
+        public override async Task<IActionResult> GetAll()
         {
-            var realties = _context.Realty.ToList().Select(s => s.ToRealtyDto());
+            var realties = await _context.Realty.ToListAsync();
+            
+            var realtiesDto = realties.Select(s => s.ToRealtyDto());
 
             return Ok(realties);
         }
 
         [HttpGet("{id}")]
-        public override IActionResult GetById([FromRoute] int id)
+        public override async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var realty = _context.Realty.Find(id);
+            var realty = await _context.Realty.FindAsync(id);
 
             if (realty is null)
             {
@@ -33,22 +35,22 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateRealtyRequestDto realtyDto)
+        public async Task<IActionResult> Create([FromBody] CreateRealtyRequestDto realtyDto)
         {
             var realtyModel = realtyDto.ToRealtyFromCreateDto();
 
-            _context.Realty.Add(realtyModel);
+            await _context.Realty.AddAsync(realtyModel);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = realtyModel.Id }, realtyModel.ToRealtyDto());
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateRealtyRequestDto realtyDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRealtyRequestDto realtyDto)
         {
-            var realtyModel = _context.Realty.FirstOrDefault(x => x.Id == id);
+            var realtyModel = await _context.Realty.FirstOrDefaultAsync(x => x.Id == id);
 
             if (realtyModel is null)
             {
@@ -65,8 +67,27 @@ namespace backend.Controllers
 
             realtyModel.Type = realtyDto.Type;
 
-            return Ok(realtyModel.ToRealtyDto());
+            await _context.SaveChangesAsync();
 
+            return Ok(realtyModel.ToRealtyDto());
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var realtyModel = await _context.Realty.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (realtyModel is null)
+            {
+                return NotFound("Object not exist or already deleted");
+            }
+
+            _context.Realty.Remove(realtyModel);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

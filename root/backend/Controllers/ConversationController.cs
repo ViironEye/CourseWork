@@ -12,17 +12,19 @@ namespace backend.Controllers
         : base(context) { }
 
         [HttpGet]
-        public override IActionResult GetAll()
+        public override async Task<IActionResult> GetAll()
         {
-            var conversations = _context.Conversation.ToList().Select(s => s.ToConversationDto());
+            var conversations = await _context.Conversation.ToListAsync();
+            
+            var conversationsDto = conversations.Select(s => s.ToConversationDto());
 
-            return Ok(conversations);
+            return Ok(conversationsDto);
         }
 
         [HttpGet("{id}")]
-        public override IActionResult GetById([FromRoute] int id)
+        public override async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var conversation = _context.Conversation.Find(id);
+            var conversation = await _context.Conversation.FindAsync(id);
 
             if (conversation is null)
             {
@@ -33,13 +35,13 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateConversationRequestDto conversationDto)
+        public async Task<IActionResult> Create([FromBody] CreateConversationRequestDto conversationDto)
         {
             var conversationModel = conversationDto.ToConversationFromCreateDto();
 
-            _context.Conversation.Add(conversationModel);
+            await _context.Conversation.AddAsync(conversationModel);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = conversationModel.Id }, conversationModel.ToConversationDto());
 
@@ -47,9 +49,9 @@ namespace backend.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateConversationRequestDto conversationDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateConversationRequestDto conversationDto)
         {
-            var conversationModel = _context.Conversation.FirstOrDefault(x => x.Id == id);
+            var conversationModel = await _context.Conversation.FirstOrDefaultAsync(x => x.Id == id);
 
             if (conversationModel is null)
             {
@@ -63,7 +65,24 @@ namespace backend.Controllers
             conversationModel.RealtorId = conversationDto.RealtorId;
 
             return Ok(conversationModel.ToConversationDto());
+        }
 
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var conversationModelModel = await _context.Conversation.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (conversationModelModel is null)
+            {
+                return NotFound("Object not exist or already deleted");
+            }
+
+            _context.Conversation.Remove(conversationModelModel);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

@@ -12,17 +12,19 @@ namespace backend.Controllers
         : base(context) { }
 
         [HttpGet]
-        public override IActionResult GetAll()
+        public override async Task<IActionResult> GetAll()
         {
-            var clients = _context.Client.ToList().Select(s => s.ToClientDto());
+            var clients = await _context.Client.ToListAsync();
+            
+            var clientsDto = clients.Select(s => s.ToClientDto());
 
-            return Ok(clients);
+            return Ok(clientsDto);
         }
 
         [HttpGet("{id}")]
-        public override IActionResult GetById([FromRoute] int id)
+        public override async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var client = _context.Client.Find(id);
+            var client = await _context.Client.FindAsync(id);
 
             if (client is null)
             {
@@ -33,22 +35,22 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateClientRequestDto clientDto)
+        public async Task<IActionResult> Create([FromBody] CreateClientRequestDto clientDto)
         {
             var clientModel = clientDto.ToClientFromCreateDto();
 
-            _context.Client.Add(clientModel);
+            await _context.Client.AddAsync(clientModel);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = clientModel.Id }, clientModel.ToClientDto());
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] UpdateClientRequestDto clientDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateClientRequestDto clientDto)
         {
-            var clientModel = _context.Client.FirstOrDefault(x => x.Id == id);
+            var clientModel = await _context.Client.FirstOrDefaultAsync(x => x.Id == id);
 
             if (clientModel is null)
             {
@@ -67,11 +69,29 @@ namespace backend.Controllers
 
             clientModel.PasswordHash = clientDto.PasswordHash;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(clientModel.ToClientDto());
 
             //hhh
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var clientModel = await _context.Client.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (clientModel is null)
+            {
+                return NotFound("Object not exist or already deleted");
+            }
+
+            _context.Client.Remove(clientModel);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
