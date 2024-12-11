@@ -9,7 +9,10 @@ namespace backend.Controllers
     public class ClientController : EntityController
     {
         public ClientController(ApplicationDBContext context)
-        : base(context) { }
+        : base(context) 
+        {
+
+        }
 
         [HttpGet]
         public override async Task<IActionResult> GetAll()
