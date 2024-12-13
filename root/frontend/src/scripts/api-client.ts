@@ -6,7 +6,6 @@ export default async function fetchData()
 {    
     try
     {
-
         const response = await axios.get('${API_URL}/data');
 
         console.log("Response from backend: ", response.data);
